@@ -20,8 +20,5 @@ Polymer('patuit-timeline', {
   },
   decreaseZ: function (e, x, el) {
     el.setZ(1);
-  },
-  refreshFriendship: function () {
-    this.$.friend_info.go();
   }
 })

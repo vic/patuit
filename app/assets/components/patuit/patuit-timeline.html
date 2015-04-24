@@ -9,8 +9,7 @@
       <input value="{{nickname}}" />
     </paper-input-decorator>
 
-    <patuit-user info="{{$.friend_info.response}}" 
-    on-refresh-friendship="{{ refreshFriendship }}"></patuit-user>
+    <patuit-user info="{{$.friend_info.response}}"></patuit-user>
 
     <ul>
       <template repeat="{{ tweet in timeline }}">

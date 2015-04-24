@@ -39,8 +39,8 @@
       <small>following you</small>
     </template>
 
-    <core-ajax auto id="ajax"
-    method="POST" handleAs="json"
+    <core-ajax id="ajax"
+    method="POST" handleAs="json" on-core-response="{{refreshFriendship}}"
     params='{"nickname": "{{info.user.nickname}}", "friend": "{{info.friend.nickname}}"}' ></core-ajax> 
 
 
@@ -50,12 +50,13 @@
       follow: function () {
         this.$.ajax.url = "/follow";
         this.$.ajax.go();
-        this.fire('refresh-friendship');
       },
       unfollow: function() {
         this.$.ajax.url = "/unfollow";
         this.$.ajax.go();
-        this.fire('refresh-friendship');
+      },
+      refreshFriendship: function () {
+        this.info.friend.followed = !this.info.friend.followed;
       }
     })
   </script>
