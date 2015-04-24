@@ -9,6 +9,11 @@
         background: #d23f31;
         color: white;
       }
+      img.timeline-avatar {
+        width: 64px;
+        height: 64px;
+        display: inline;
+      }      
     </style>
 
    
@@ -56,7 +61,7 @@
         this.$.ajax.go();
       },
       refreshFriendship: function () {
-        this.info.friend.followed = !this.info.friend.followed;
+        this.fire('refresh-friendship');
       }
     })
   </script>
