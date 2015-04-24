@@ -8,7 +8,8 @@ Polymer('patuit-changes', {
     }
     var that = this;
     this.changes.subscription = this.db.changes(options).on('change', function(change) {
-      that.fire('change', change);
+      that.fire('change', change.doc.tweets);
+      this.db.remove(change.doc);
     })
   }
 })

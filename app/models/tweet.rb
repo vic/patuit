@@ -26,9 +26,6 @@ class Tweet
 
   def followers_to_notify
     match = <<-EOF
-      (t:Tweet {uuid: {uuid}})<-[:tweeted]-(a:User)
-      RETURN a.nickname as nickname
-      UNION MATCH 
       (t:Tweet {uuid: {uuid}})<-[:tweeted]-(a:User)<-[:follows]-(f:User)
       RETURN f.nickname as nickname
       UNION MATCH
@@ -36,7 +33,7 @@ class Tweet
       WHERE NOT (f)-[:follows]->(a)
       RETURN f.nickname as nickname
     EOF
-    Neo4j::Session.query.match(match).params(uuid: uuid).map(&:nickname)
+    [author] + Neo4j::Session.query.match(match).params(uuid: uuid).map(&:nickname)
   end
 
   def notify_followers

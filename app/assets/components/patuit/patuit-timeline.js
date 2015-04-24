@@ -12,10 +12,8 @@ Polymer('patuit-timeline', {
       include_docs: true
     })
   },
-  newTweet: function (e, change) {
-    var newTweets = change.doc.tweets;
+  newTweet: function (e, newTweets) {
     this.timeline.unshift.apply(this.timeline, newTweets);
-    this.$.pouch.db.remove(change.doc._id);
   },
   increaseZ: function (e, x, el) {
     el.setZ(2);
