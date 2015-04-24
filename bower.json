@@ -1,3 +1,6 @@
 {
-  "name": "patuit"
+  "name": "patuit",
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.5.5"
+  }
 }
