@@ -1,11 +1,11 @@
-<polymer-element name='patuit-composer'>
+<polymer-element name='patuit-composer' attributes="nickname">
   <template>
 
-    <paper-input-decorator label="@username" floatingLabel="true">
+    <paper-input-decorator label="Your @username" floatingLabel="true">
       <input is="core-input" name="nickname" value="{{nickname}}" />
     </paper-input-decorator>
 
-    <paper-input-decorator label="Que esta pasando" floatingLabel="true">
+    <paper-input-decorator label="Whats new" floatingLabel="true">
       <textarea name="message" value="{{message}}"></textarea>
     </paper-input-decorator>
 

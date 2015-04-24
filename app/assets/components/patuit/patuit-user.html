@@ -1,0 +1,60 @@
+<polymer-element name="patuit-user" attributes="info">
+  <template>
+    <style>
+      paper-button.follow {
+        background: green;
+        color: white;
+      }
+      paper-button.unfollow {
+        background: red;
+        color: white;
+      }
+    </style>
+
+    <img src="https://avatars.io/twitter/{{info.friend.nickname}}" 
+         class="timeline-avatar"/>
+
+    <label>{{info.friend.tweets}} Tweets</label> 
+
+    <label>{{info.friend.followers}} Followers</label> 
+
+    <template if="{{info.friend.followed}}">
+      <paper-button class="unfollow" on-click="{{unfollow}}">
+        <core-icon icon="close"></core-icon>
+        Unfollow
+      </paper-button>
+    </template>
+
+    <template if="{{!info.friend.followed}}">
+      <paper-button class="follow" on-click="{{follow}}">
+        <core-icon icon="check"></core-icon>
+        Follow
+      </paper-button>
+    </template>
+
+    <template if="{{info.user.followed}}">
+      <small>following you</small>
+    </template>
+
+    <core-ajax auto id="ajax"
+    method="POST" handleAs="json" on-core-response="{{toggleFollowed}}"
+    params='{"nickname": "{{myNickname}}", "friend": "{{nickname}}"}' ></core-ajax> 
+
+
+  </template>
+  <script>
+    Polymer('patuit-user', {
+      follow: function () {
+        this.$.ajax.url = "/follow";
+        this.$.ajax.go();
+      },
+      unfollow: function() {
+        this.$.ajax.url = "/follow";
+        this.$.ajax.go();
+      },
+      toggleFollowed: function () {
+        this.info.friend.followed = !this.info.friend.followed;
+      }
+    })
+  </script>
+</polymer-element>

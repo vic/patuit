@@ -1,13 +1,15 @@
+<link rel="import" href="patuit-user">
 <link rel="import" href="patuit-changes">
 
-<polymer-element name="patuit-timeline">
+<polymer-element name="patuit-timeline" attributes="nickname myNickname">
   <template>
     <link rel="stylesheet" href="patuit-timeline.css">
 
-    <paper-input-decorator label="@nickname">
-      <img src="https://avatars.io/twitter/{{nickname}}" class="timeline-avatar"/>
+    <paper-input-decorator label="Timeline for @nickname" floatingLabel="true">
       <input value="{{nickname}}" />
     </paper-input-decorator>
+
+    <patuit-user info="{{$.friend_info.response}}"></patuit-user>
 
     <ul>
       <template repeat="{{ tweet in timeline }}">
@@ -21,6 +23,11 @@
         </li>
       </template>
     </ul>
+
+    <core-ajax auto id="friend_info" url="/friend_info" 
+    method="GET" handleAs="json" 
+    params='{"nickname": "{{myNickname}}", "friend": "{{nickname}}"}' >
+    </core-ajax>
 
     <core-ajax auto id="ajax" url="/timeline" method="GET" handleAs="json" 
     params='{"nickname": "{{nickname}}"}'

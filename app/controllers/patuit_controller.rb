@@ -2,6 +2,10 @@ class PatuitController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
+  def friend_info
+    render json: User.friendship(params[:nickname], params[:friend])
+  end
+
   def tweet
     nickname = params[:nickname]
     message = params[:message]

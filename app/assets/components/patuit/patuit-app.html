@@ -2,12 +2,13 @@
 <link rel="import" href="patuit-timeline.html">
 <polymer-element name="patuit-app">
   <template>
-    <patuit-composer></patuit-composer>
-    <patuit-timeline></patuit-timeline>
+    <patuit-composer nickname="{{composer_nickname}}"></patuit-composer>
+    <patuit-timeline myNickname="{{composer_nickname}}"
+      nickname="{{timeline_nickname}}" ></patuit-timeline>
   </template>
   <script>
     Polymer('patuit-app', {
-      
+       
     })
   </script>
 </polymer-element>

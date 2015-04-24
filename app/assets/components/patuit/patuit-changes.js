@@ -1,5 +1,5 @@
 Polymer('patuit-changes', {
-  ready: function () {
+  created: function () {
     this.db = new PouchDB(this.name, this.options);
   },
   changes: function (options) {
