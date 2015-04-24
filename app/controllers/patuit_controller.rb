@@ -1,0 +1,3 @@
+class PatuitController < ApplicationController
+
+end
