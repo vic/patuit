@@ -11,16 +11,19 @@ class Tweet
     match = <<-EOF
       (u:User {nickname: {nickname}})-[:tweeted]->(t:Tweet)
       RETURN t as tweet, t.created_at as d
+      ORDER BY d DESC LIMIT 10
       UNION MATCH
       (u:User {nickname: {nickname}})-[:follows]->(User)-[:tweeted]->(t:Tweet)
       RETURN t as tweet, t.created_at as d
+      ORDER BY d DESC LIMIT 10
       UNION MATCH 
       (u:User {nickname: {nickname}})-[:follows]->(User)-[:retweeted]->(t:Tweet)<-[:tweeted]-(x:User)
       WHERE NOT (u)-[:follows]->(x)
       RETURN t as tweet, t.created_at as d
       ORDER BY d DESC LIMIT 10
     EOF
-    Neo4j::Session.query.match(match).params(nickname: nickname).map(&:tweet)
+    Neo4j::Session.query.match(match).params(nickname: nickname)
+    .map(&:tweet).sort_by(&:created_at).reverse.take(10)
   end
 
 
