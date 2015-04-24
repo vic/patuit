@@ -1,0 +1,34 @@
+<link rel="import" href="patuit-changes">
+
+<polymer-element name="patuit-timeline">
+  <template>
+    <link rel="stylesheet" href="patuit-timeline.css">
+
+    <paper-input-decorator label="@nickname">
+      <img src="https://avatars.io/twitter/{{nickname}}" class="timeline-avatar"/>
+      <input value="{{nickname}}" />
+    </paper-input-decorator>
+
+    <ul>
+      <template repeat="{{ tweet in timeline }}">
+        <li>
+          <paper-shadow animated class="card" z="1"
+            on-mouseenter="{{increaseZ}}" on-mouseout="{{decreaseZ}}">
+            <img src="https://avatars.io/twitter/{{tweet.tweet.author}}" />
+            {{tweet.tweet.message}}
+            <small>{{tweet.tweet.created_at}}</small>
+          </paper-shadow>
+        </li>
+      </template>
+    </ul>
+
+    <core-ajax auto id="ajax" url="/timeline" method="GET" handleAs="json" 
+    params='{"nickname": "{{nickname}}"}'
+    on-core-response="{{handleResponse}}"></core-ajax>
+    
+    <patuit-changes id="pouch" name="http://localhost:5984/patuit"
+    on-change="{{newTweet}}"></patuit-changes>
+
+  </template>
+  <script src="patuit-timeline.js"></script>
+</polymer-element>

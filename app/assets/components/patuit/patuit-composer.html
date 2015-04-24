@@ -1,0 +1,21 @@
+<polymer-element name='patuit-composer'>
+  <template>
+
+    <paper-input-decorator label="@username" floatingLabel="true">
+      <input is="core-input" name="nickname" value="{{nickname}}" />
+    </paper-input-decorator>
+
+    <paper-input-decorator label="Que esta pasando" floatingLabel="true">
+      <textarea name="message" value="{{message}}"></textarea>
+    </paper-input-decorator>
+
+    <paper-fab id="button" role="button" icon="arrow-forward" on-click="{{createTweet}}">
+    </paper-fab>
+
+    <core-ajax id="ajax" url="/tweet" method="POST" handleAs="json" 
+      params='{ "nickname": "{{nickname}}", "message": "{{message}}"}'
+      on-core-response="{{handleResponse}}"></core-ajax>
+
+  </template>
+  <script src="patuit-composer.js"></script>
+</polymer-element>
