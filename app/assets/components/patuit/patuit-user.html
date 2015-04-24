@@ -6,17 +6,20 @@
         color: white;
       }
       paper-button.unfollow {
-        background: red;
+        background: #d23f31;
         color: white;
       }
     </style>
 
+   
     <img src="https://avatars.io/twitter/{{info.friend.nickname}}" 
          class="timeline-avatar"/>
 
     <label>{{info.friend.tweets}} Tweets</label> 
 
     <label>{{info.friend.followers}} Followers</label> 
+
+    <br />
 
     <template if="{{info.friend.followed}}">
       <paper-button class="unfollow" on-click="{{unfollow}}">
@@ -37,8 +40,8 @@
     </template>
 
     <core-ajax auto id="ajax"
-    method="POST" handleAs="json" on-core-response="{{toggleFollowed}}"
-    params='{"nickname": "{{myNickname}}", "friend": "{{nickname}}"}' ></core-ajax> 
+    method="POST" handleAs="json"
+    params='{"nickname": "{{info.user.nickname}}", "friend": "{{info.friend.nickname}}"}' ></core-ajax> 
 
 
   </template>
@@ -47,13 +50,12 @@
       follow: function () {
         this.$.ajax.url = "/follow";
         this.$.ajax.go();
+        this.fire('refresh-friendship');
       },
       unfollow: function() {
-        this.$.ajax.url = "/follow";
+        this.$.ajax.url = "/unfollow";
         this.$.ajax.go();
-      },
-      toggleFollowed: function () {
-        this.info.friend.followed = !this.info.friend.followed;
+        this.fire('refresh-friendship');
       }
     })
   </script>

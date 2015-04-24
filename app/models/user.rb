@@ -17,14 +17,14 @@ class User
 
     user_info.merge!({
       followed: friend && user && friend.friends.include?(user),
-      followers: user && user.friends.count,
-      tweets: user && user.tweets.count
+      followers: user && user.friends.count || 0,
+      tweets: user && user.tweets.count || 0
     })
 
     friend_info.merge!({
       followed: friend && user && user.friends.include?(friend),
-      followers: friend && friend.friends.count,
-      tweets: friend && friend.tweets.count
+      followers: friend && friend.friends.count || 0,
+      tweets: friend && friend.tweets.count || 0
     })
 
     {user: user_info, friend: friend_info}

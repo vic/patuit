@@ -22,8 +22,8 @@ class PatuitController < ApplicationController
   end
 
   def follow
-    user = User.find_by(nickname: params[:nickname])
-    friend = User.find_by(nickame: params[:friend])
+    user = User.find_or_create_by(nickname: params[:nickname])
+    friend = User.find_or_create_by(nickname: params[:friend])
     user.friends << friend
     render json: { }
   end
