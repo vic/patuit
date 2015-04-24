@@ -30,7 +30,7 @@ class PatuitController < ApplicationController
 
   def unfollow
     user = User.find_by(nickname: params[:nickname])
-    friend = User.find_by(nickame: params[:friend])
+    friend = User.find_by(nickname: params[:friend])
     user.friends.delete(friend)
     render json: { }
   end
